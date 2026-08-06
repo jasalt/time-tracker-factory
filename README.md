@@ -46,3 +46,13 @@ podman compose up -d --wait
 The Compose defaults are disposable-test values only. Read
 [`KIMAI-TESTING.md`](KIMAI-TESTING.md) before creating API tokens or using the
 stack outside local testing.
+
+## Tunneling VNC port from guest to host with Lima VM
+
+```
+ssh \
+  -F /home/user/.lima/default/ssh.config \
+  -N -T \
+  -L 127.0.0.1:5901:127.0.0.1:5900 \
+  lima-default
+```
