@@ -1,0 +1,50 @@
+# Local Kimai instance used by KIMAI-TESTING.md. Test-only defaults; never deploy them.
+name: kimai-e2e
+
+services:
+  sqldb:
+    image: mysql:8.3
+    command: --default-storage-engine=innodb
+    environment:
+      MYSQL_DATABASE: kimai
+      MYSQL_USER: kimai
+      MYSQL_PASSWORD: ${KIMAI_DB_PASSWORD:-kimai-test-password}
+      MYSQL_ROOT_PASSWORD: ${KIMAI_DB_ROOT_PASSWORD:-kimai-test-root-password}
+    volumes:
+      - mysql:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin -uroot -p$$MYSQL_ROOT_PASSWORD ping -h 127.0.0.1 --silent",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: "no"
+
+  kimai:
+    image: kimai/kimai2:stable
+    depends_on:
+      sqldb:
+        condition: service_healthy
+        restart: true
+    environment:
+      APP_ENV: prod
+      APP_SECRET: ${KIMAI_APP_SECRET:-kimai-e2e-only-change-this-long-random-secret-before-production}
+      TRUSTED_HOSTS: ${KIMAI_TRUSTED_HOSTS:-localhost|127\.0\.0\.1}
+      ADMINMAIL: ${KIMAI_ADMIN_EMAIL:-admin@example.test}
+      ADMINPASS: ${KIMAI_ADMIN_PASSWORD:-kimai-test-admin-password}
+      DATABASE_URL: mysql://kimai:${KIMAI_DB_PASSWORD:-kimai-test-password}@sqldb:3306/kimai?charset=utf8mb4&serverVersion=8.3
+    ports:
+      - "${KIMAI_PORT:-8001}:8001"
+    volumes:
+      - data:/opt/kimai/var/data
+      - plugins:/opt/kimai/var/plugins
+    restart: "no"
+
+volumes:
+  data:
+  mysql:
+  plugins:

@@ -1,0 +1,9 @@
+[submodule "gtt"]
+	path = gtt
+	url = git@github.com:jasalt/go-time-tracker.git
+[submodule "rtt"]
+	path = rtt
+	url = git@github.com:jasalt/rust-time-tracker.git
+[submodule "ett"]
+	path = ett
+	url = git@github.com:jasalt/emacs-time-tracker.git
