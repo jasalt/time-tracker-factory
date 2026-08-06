@@ -14,9 +14,9 @@ local-day totals.
 
 | Project        | Focus                                                 | Status                                                          |
 |----------------|-------------------------------------------------------|-----------------------------------------------------------------|
-| [`gtt/`](gtt/) | Go core with CLI, Bubble Tea TUI, and Fyne desktop UI | Early development; essential Clockify and Kimai workflows work. |
-| [`rtt/`](rtt/) | Rust implementation                                   | Planned/experimental.                                           |
-| [`ett/`](ett/) | Native Emacs 30+ status-buffer and Transient UI       | Design complete; implementation has not started.                |
+| [`gtt`](https://github.com/jasalt/go-time-tracker) | Go core with CLI, Bubble Tea TUI, and Fyne desktop UI | Early development; essential Clockify and Kimai workflows work. |
+| [`rtt`](https://github.com/jasalt/rust-time-tracker) | Rust implementation | Planned/experimental. |
+| [`ett`](https://github.com/jasalt/emacs-time-tracker) | Native Emacs 30+ status-buffer and Transient UI | Design complete; implementation has not started. |
 
 `gtt` is the current reference implementation. It has provider-neutral core
 workflows, Clockify and Kimai adapters, scriptable and interactive frontends,
@@ -30,8 +30,8 @@ the preferred `podman compose` command.
 
 [`KIMAI-TESTING.md`](KIMAI-TESTING.md) defines implementation-agnostic Kimai
 acceptance scenarios for all clients. GTT's captured run, UI screenshots, and
-redacted transcript are in
-[`gtt/test-results/2026-08-06T09-34-52Z/`](gtt/test-results/2026-08-06T09-34-52Z/).
+redacted transcript are in the
+[`gtt` repository](https://github.com/jasalt/go-time-tracker/tree/master/test-results/2026-08-06T09-34-52Z/).
 
 For Fyne GUI automation and evidence capture, use the direct X11 procedure in
 [`docs/VISION-X11.md`](docs/VISION-X11.md).
